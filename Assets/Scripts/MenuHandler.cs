@@ -30,4 +30,9 @@ public class MenuHandler : MonoBehaviour
         Application.Quit();
 #endif
     }
+
+    //returns to menu
+    public void Menu(){
+        SceneManager.LoadScene(0);
+    }
 }

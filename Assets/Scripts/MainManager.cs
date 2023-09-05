@@ -18,10 +18,17 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
+    //added by Avi
+    private PersistenceManager persistenceManager;
+    public Text highScoreText;
+
     
     // Start is called before the first frame update
     void Start()
     {
+        persistenceManager = GameObject.Find("PersistenceManager").GetComponent<PersistenceManager>();
+        highScoreText.text = $"High Score: {persistenceManager.highName}: {persistenceManager.highScore}";
+        
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -70,7 +77,17 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+        //check if this is new high score
+        if (m_Points > persistenceManager.highScore){
+            persistenceManager.highScore = m_Points;
+            persistenceManager.highName = persistenceManager.playerName;
+            SetHighScore(m_Points);
+        }
         m_GameOver = true;
         GameOverText.SetActive(true);
+    }
+
+    public void SetHighScore(int score){
+        highScoreText.text = $"High Score: {persistenceManager.playerName}: {score}";
     }
 }
