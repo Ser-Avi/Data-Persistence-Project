@@ -79,8 +79,6 @@ public class MainManager : MonoBehaviour
     {
         //check if this is new high score
         if (m_Points > persistenceManager.highScore){
-            persistenceManager.highScore = m_Points;
-            persistenceManager.highName = persistenceManager.playerName;
             SetHighScore(m_Points);
         }
         m_GameOver = true;
@@ -88,6 +86,10 @@ public class MainManager : MonoBehaviour
     }
 
     public void SetHighScore(int score){
+        persistenceManager.highScore = m_Points;
+        persistenceManager.highName = persistenceManager.playerName;;
+        persistenceManager.SaveScore();
+
         highScoreText.text = $"High Score: {persistenceManager.playerName}: {score}";
     }
 }
